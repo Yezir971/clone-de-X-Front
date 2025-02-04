@@ -4,7 +4,7 @@ import mongooesUniqueValidator from 'mongoose-unique-validator'
 const usersSchema = new mongoose.Schema({
     username:{
         type:String,
-        required:true
+        required:true,
     },
     email:{
         type:String,
@@ -17,7 +17,7 @@ const usersSchema = new mongoose.Schema({
     },
     activate:{
         type:Boolean,
-        required:true
+        default:true
     },
     avatar: { 
         type: String, 

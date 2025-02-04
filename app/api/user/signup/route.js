@@ -6,9 +6,9 @@ export async function POST(req) {
         const body = await req.json()
         const newUser = await addUser(body)
 
-        return Response.json({massage:"nouvelle utilisateur créé",  newUser:newUser, status: 201 })
+        return Response.json({message:"Votre compte a bien été créé !",  newUser:newUser, status: 201 })
     } catch (error) {
-        console.error(error.message)
+        return Response.json({message:"Votre compte n'a pas été créé !", status: 400 })
     }    
 }
 
@@ -17,7 +17,7 @@ const addUser = async (user) => {
         const response = Users.create({...user})
         return response
     } catch (error) {
-        throw new Error(error.massage);
+        throw new Error(error.message);
         
     }
 }
