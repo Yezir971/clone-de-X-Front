@@ -5,7 +5,10 @@ const SignUp = () => {
     const [formData, setFormData] = useState({})
     const [message, setMessage] = useState("")
     // la ref va permettre de dissocier les informations a envoyer en bdd du confirm mot de passe 
-    const ref = useRef()
+    const refName = useRef()
+    const refMail = useRef()
+    const refPassword1 = useRef()
+    const refPassword2 = useRef()
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData(prevState => ({
@@ -22,12 +25,18 @@ const SignUp = () => {
                 headers:{
                     'Content-type':'application/json',
                 },
+
                 body: JSON.stringify(body)
 
             })
+            // une fois evoyer on reinitialiser les inputs 
+            refName.current.value = ""
+            refMail.current.value = ""
+            refPassword1.current.value = ""
+            refPassword2.current.value = ""
+            setFormData({})
             const data = await response.json()
             setMessage(data.message)
-            console.log(data)
             
         } catch (error) {
             console.error(error.message)
@@ -37,12 +46,16 @@ const SignUp = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        if (formData.password !== ref.current.value) {
-            alert('Les mots de passe ne correspondent pas');
+        if (formData.password !== refPassword2.current.value) {
+            setMessage('Les mots de passe ne correspondent pas');
             return;
         }
         sendUser(formData)
-        console.log('Inscription', formData);
+
+
+
+
+
     };
     return(
         <>
@@ -51,27 +64,23 @@ const SignUp = () => {
                     <div className="border border-[#00A5CF] rounded-xl shadow-lg p-8">
                         <form className="space-y-6" onSubmit={handleSubmit} method="post" action="">
                             <h1>Créer un compte</h1>
-                            
                             <div>
                                 <label htmlFor="username">Nom d'utilisateur</label>
-                                <input onChange={handleChange} type="text" name="username" id="username" className="w-full p-3 bg-white border border-[#00A5CF] rounded-lg text-black focus:outline-none focus:ring-2 focus:ring-[#00A5CF]"/>
+                                <input onChange={handleChange} ref={refName} type="text" name="username" id="username" className="w-full p-3 bg-white border border-[#00A5CF] rounded-lg text-black focus:outline-none focus:ring-2 focus:ring-[#00A5CF]"/>
                             </div>
-
                             <div>
                                 <label htmlFor="email">Email</label>
-                                <input onChange={handleChange} type="text" name="email" id="email" className="w-full p-3 bg-white border border-[#00A5CF] rounded-lg text-black focus:outline-none focus:ring-2 focus:ring-[#00A5CF]"/>
+                                <input onChange={handleChange} ref={refMail} type="text" name="email" id="email" className="w-full p-3 bg-white border border-[#00A5CF] rounded-lg text-black focus:outline-none focus:ring-2 focus:ring-[#00A5CF]"/>
                             </div>
                             <div>
                                 <label htmlFor="password">Mot de passe</label>
-                                <input onChange={handleChange} type="password" name="password" id="password" className="w-full p-3 bg-white border border-[#00A5CF] rounded-lg text-black focus:outline-none focus:ring-2 focus:ring-[#00A5CF]"/>
+                                <input onChange={handleChange} ref={refPassword1} type="password" name="password" id="password" className="w-full p-3 bg-white border border-[#00A5CF] rounded-lg text-black focus:outline-none focus:ring-2 focus:ring-[#00A5CF]"/>
                             </div>
                             <div>
                                 <label htmlFor="password2">Confirmer le mot de passe</label>
-                                <input ref={ref} type="password" name="password2" id="password2" className="w-full p-3 bg-white border border-[#00A5CF] rounded-lg text-black focus:outline-none focus:ring-2 focus:ring-[#00A5CF]"/>
-                                
+                                <input ref={refPassword2} type="password" name="password2" id="password2" className="w-full p-3 bg-white border border-[#00A5CF] rounded-lg text-black focus:outline-none focus:ring-2 focus:ring-[#00A5CF]"/>
                             </div>
                             <input type="submit" value="Inscription"/>
-
                             <p>Déjà un compte ? <a href="/login">Connectez-vous</a></p>
                         </form>
                         <p>{message}</p>

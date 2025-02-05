@@ -26,6 +26,10 @@ const usersSchema = new mongoose.Schema({
     suscription:{
         type:Array
     },
+    isVerified:{
+        type:Boolean,
+        default:false
+    },
     role: {
         type: String, 
         enum: ['user', 'admin'],
