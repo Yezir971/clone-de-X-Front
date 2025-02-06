@@ -14,4 +14,8 @@
   }
 }
 
+body {
+  @apply bg-[#181818]; /* Remplace 'bg-gray-100' par la couleur souhaitée */
+}
+
 
