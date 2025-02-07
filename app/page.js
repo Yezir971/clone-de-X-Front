@@ -11,44 +11,48 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { socket } from "./socket";
+import  {socket}  from "../libs/socket";
+import Chat from "./components/chat";
 
 export default function Home() {
-  const [isConnected, setIsConnected] = useState(false);
-  const [transport, setTransport] = useState("N/A");
+  // const [isConnected, setIsConnected] = useState(false);
+  // const [transport, setTransport] = useState("N/A");
 
-  useEffect(() => {
-    if (socket.connected) {
-      onConnect();
-    }
+  // useEffect(() => {
+  //   if (socket.connected) {
+  //     onConnect();
+  //   }
 
-    function onConnect() {
-      setIsConnected(true);
-      setTransport(socket.io.engine.transport.name);
+  //   function onConnect() {
+  //     setIsConnected(true);
+  //     setTransport(socket.io.engine.transport.name);
+      
+  //     console.log("✅ Connecté au serveur WebSocket !");
+  //     socket.io.engine.on("upgrade", (transport) => {
+  //       setTransport(transport.name);
+  //     });
+  //   }
 
-      socket.io.engine.on("upgrade", (transport) => {
-        setTransport(transport.name);
-      });
-    }
+  //   function onDisconnect() {
+  //     setIsConnected(false);
+  //     setTransport("N/A");
+  //   }
 
-    function onDisconnect() {
-      setIsConnected(false);
-      setTransport("N/A");
-    }
 
-    socket.on("connect", onConnect);
-    socket.on("disconnect", onDisconnect);
+  //   socket.on("connect", onConnect);
+  //   socket.on("disconnect", onDisconnect);
 
-    return () => {
-      socket.off("connect", onConnect);
-      socket.off("disconnect", onDisconnect);
-    };
-  }, []);
+  //   return () => {
+  //     socket.off("connect", onConnect);
+  //     socket.off("disconnect", onDisconnect);
+  //   };
+  // }, []);
 
   return (
     <div>
-      <p>Status: { isConnected ? "connected" : "disconnected" }</p>
-      <p>Transport: { transport }</p>
+      {/* <p>Status: { isConnected ? "connected" : "disconnected" }</p>
+      <p>Transport: { transport }</p> */}
+      <Chat />
     </div>
   );
 }
