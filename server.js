@@ -5,25 +5,34 @@ import { Server } from "socket.io";
 const dev = process.env.NODE_ENV !== "production";
 const hostname = "localhost";
 const port = 3000;
-// when using middleware `hostname` and `port` must be provided below
 const app = next({ dev, hostname, port });
 const handler = app.getRequestHandler();
 
 app.prepare().then(() => {
   const httpServer = createServer(handler);
 
-  const io = new Server(httpServer);
-
-  io.on("connection", (socket) => {
-    console.log("Les chaussettes de l'archi duchesses sont elles sèches 🧦🧦")
+  const io = new Server(httpServer, {
+    cors: {
+      origin: "http://localhost:3000", // Autorise le client Next.js
+      methods: ["GET", "POST"],
+    },
   });
 
-  httpServer
-    .once("error", (err) => {
-      console.error(err);
-      process.exit(1);
-    })
-    .listen(port, () => {
-      console.log(`> Ready on http://${hostname}:${port}`);
+  io.on("connection", (socket) => {
+    console.log("🟢 Un utilisateur est connecté : " + socket.id);
+
+    // Réception et diffusion d'un message
+    socket.on("sendMessage", (message) => {
+      console.log("📩 Message reçu :", message);
+      socket.broadcast.emit("receiveMessage", message); // Diffuse à tous les clients
     });
+
+    socket.on("disconnect", () => {
+      console.log("🔴 Un utilisateur s'est déconnecté : " + socket.id);
+    });
+  });
+
+  httpServer.listen(port, () => {
+    console.log("🚀 Serveur WebSocket en écoute sur http://localhost:3000");
+  });
 });
