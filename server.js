@@ -32,7 +32,7 @@ app.prepare().then(() => {
     });
   });
 
-  httpServer.listen(3001, () => {
-    console.log("🚀 Serveur WebSocket en écoute sur http://localhost:3001");
+  httpServer.listen(port, () => {
+    console.log("🚀 Serveur WebSocket en écoute sur http://localhost:3000");
   });
 });

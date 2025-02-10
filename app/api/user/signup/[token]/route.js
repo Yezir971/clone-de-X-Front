@@ -25,13 +25,3 @@ export async function GET(req, {params}){
 
     }
 }
-
-// const editUser = async (id, newValue) => {
-//     try {
-//         const result = await Article.findByIdAndUpdate(id, newValue, { new: true });
-//         return result;
-//     } catch (error) {
-//         console.error('Error:', error.message);
-//         throw new Error('Error updating article');
-//     }
-// };
