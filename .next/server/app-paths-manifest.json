@@ -1,0 +1,10 @@
+{
+  "/api/user/login/route": "app/api/user/login/route.js",
+  "/api/user/protected/route": "app/api/user/protected/route.js",
+  "/page": "app/page.js",
+  "/private-message/[id]/page": "app/private-message/[id]/page.js",
+  "/login/page": "app/login/page.js",
+  "/signup/page": "app/signup/page.js",
+  "/user-feed-page/page": "app/user-feed-page/page.js",
+  "/user-page/page": "app/user-page/page.js"
+}
