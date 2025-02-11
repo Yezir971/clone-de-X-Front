@@ -7,7 +7,9 @@ const Search = () => {
     return(
         <>
             <SideBar />
-            <SearchBar />
+            <div className="m-4 flex-1 flex flex-col sm:ml-64">
+                <SearchBar />
+            </div>
         </>
     );
 }
