@@ -23,7 +23,7 @@ app.prepare().then(() => {
 
     // Réception et diffusion d'un message
     socket.on("sendMessage", (message) => {
-      console.log("📩 Message reçu :", message);
+      console.log("📩 Message reçu :", message);  
       socket.broadcast.emit("receiveMessage", message); // Diffuse à tous les clients
     });
 
@@ -32,7 +32,7 @@ app.prepare().then(() => {
     });
   });
 
-  httpServer.listen(port, () => {
-    console.log("🚀 Serveur WebSocket en écoute sur http://localhost:3000");
+  httpServer.listen(port,hostname, () => {
+    console.log(`🚀 Serveur WebSocket en écoute sur http://${hostname}:${port}`);
   });
 });

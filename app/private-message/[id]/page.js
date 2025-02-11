@@ -2,10 +2,11 @@
 
 import { useEffect, useState } from "react";
 import Chat from "../../components/chat";
-import { useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 
 export default function Home() {
     const router = useRouter()
+    const {id} = useParams()
     const [loading, setLoading] = useState(true)
     const [authorized, setAuthorized] = useState(false)
     const fetchAuth = async () => {
@@ -54,7 +55,7 @@ export default function Home() {
             {
                 authorized  ? 
                 (
-                    <Chat />
+                    <Chat id={id} />
                 ):(
                     null
                 )
