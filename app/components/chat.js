@@ -20,7 +20,7 @@ export default function Chat() {
   useEffect(() => {
     if (typeof window !== "undefined") { // ✅ Vérification que le code est exécuté côté client
         
-        const socketInstance = io("http://localhost:3001");
+      const socketInstance = io("http://localhost:3000");
       setSocket(socketInstance);
 
       socketInstance.on("receiveMessage", (msg) => {
