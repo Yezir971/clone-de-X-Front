@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { FaPen } from "react-icons/fa";
 
 const Profil = () => {
@@ -40,10 +41,10 @@ const Profil = () => {
                 
                 {/* Actions */}
                 <div className="mt-4 flex justify-end">
-                <button className="bg-[#16DB65] text-gray-800 hover:bg-[#058C42] px-4 py-2 rounded-xl flex justify-center items-center gap-2">
+                <Link href={'/update-profil'} className="bg-[#16DB65] text-gray-800 hover:bg-[#058C42] px-4 py-2 rounded-xl flex justify-center items-center gap-2" o>
                     <FaPen />
-                    Modifier
-                </button>
+                    Enregistrer
+                </Link>
                 </div>
             </div>
         </>
