@@ -72,7 +72,7 @@ export default function Chat({id}) {
 
     const getMessageUser = async () => {
       try {
-        const response = await fetch("http://localhost:3000/api/message", {
+        const response = await fetch("http://localhost:3000/api/message/send", {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
@@ -109,7 +109,7 @@ export default function Chat({id}) {
       socket.emit("sendMessage", newMessage); // Envoie au serveur
       // envoie en bdd
       try {
-        const response = await fetch('http://localhost:3000/api/message', {
+        const response = await fetch('http://localhost:3000/api/message/send', {
           method:'POST', 
           headers: {
             'Content-Type': 'application/json'
@@ -155,18 +155,16 @@ export default function Chat({id}) {
 
             {/* Messages */}
             <div onClick={burgerToogleWindow} className="flex-1 items-start p-4 space-y-3 overflow-y-auto">
-                {console.log(messages)}
                 {messages.map((msg, index) => (
                   <div
                       key={index}
-                      className={`max-w-xs  p-3  ${msg.reciev_id === id ? "bg-blue-600 ml-auto rounded-t-lg rounded-bl-lg" : "bg-green-600 rounded-t-lg rounded-br-lg" }  `}
+                      className={`max-w-xs p-3 ${msg.reciev_id === id ? "bg-blue-600 ml-auto rounded-t-lg rounded-bl-lg" : "bg-green-600 rounded-t-lg rounded-br-lg" }  `}
                       >
                       {msg.content}
                   </div>
                 ))}
             </div>
             {/* Messages */}
-
             {/* Input Field */}
             <div className="p-4 bg-gray-800 flex items-center">
             <input
