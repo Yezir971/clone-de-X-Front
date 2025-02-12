@@ -148,7 +148,6 @@ export default function Chat({id}) {
               </button>
               <FaUserCircle className="text-2xl mr-2 text-center" />
     
-              {console.log(usersWhofriend)}
               <span className="text-lg text-center">{usersWhofriend.username}</span>
 
 

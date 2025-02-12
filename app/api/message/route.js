@@ -39,7 +39,7 @@ const getMessage = async ({sender_id,reciev_id }) => {
         return await Message.find({
             $or: [
                 { sender_id: sender_id, reciev_id: reciev_id },
-                { sender_id: reciev_id , reciev_id: sender_id  }
+                { sender_id: reciev_id , reciev_id: sender_id }
             ]
         }).sort({ createdAt: 1 }); // Sort messages in chronological order
     } catch (error) {
