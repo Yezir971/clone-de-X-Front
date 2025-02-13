@@ -42,6 +42,7 @@ export default function Chat({id}) {
           const data = await response.json()
           // on filtrer parmis les user pour avoir juste l'utilisateur selectionner 
           let userSelect = await data.user.filter((element) => element._id == id )
+          // console.log(userState.id)
           setUsersWhofriend(userSelect[0])
           
           return data
@@ -126,6 +127,18 @@ export default function Chat({id}) {
 
     }
   };
+  const convertDate =(stringDate) => {
+    const date = new Date(stringDate)
+    const options = { 
+      year: 'numeric', 
+      month: 'long', 
+      day: 'numeric', 
+      hour: '2-digit', 
+      minute: '2-digit', 
+      second: '2-digit', 
+    };
+    return date.toLocaleDateString('fr-FR', options)
+  }
 
 
 
@@ -147,20 +160,24 @@ export default function Chat({id}) {
                   </svg>
               </button>
               <FaUserCircle className="text-2xl mr-2 text-center" />
-    
               <span className="text-lg text-center">{usersWhofriend.username}</span>
-
-
             </div>
-
             {/* Messages */}
             <div onClick={burgerToogleWindow} className="flex-1 items-start p-4 space-y-3 overflow-y-auto">
+              {/* <img class="w-8 h-8 rounded-full" src="/docs/images/people/profile-picture-3.jpg" alt="Jese image" /> */}
                 {messages.map((msg, index) => (
-                  <div
-                      key={index}
-                      className={`max-w-xs p-3 ${msg.reciev_id === id ? "bg-blue-600 ml-auto rounded-t-lg rounded-bl-lg" : "bg-green-600 rounded-t-lg rounded-br-lg" }  `}
-                      >
-                      {msg.content}
+                  <div className={`${msg.sender_id === id ? "mr-10":"ml-10"}`} key={index}>
+                    <div className={`flex flex-col gap-1 w-full max-w-[320px] ${msg.reciev_id === id && "ml-auto" }`}>
+                      <div className="flex items-center space-x-2 rtl:space-x-reverse">
+                        <span className="text-sm font-semibold text-gray-900 dark:text-white">{msg.sender_id === id ?  usersWhofriend.username :userState.username  }</span>
+                        <span className="text-sm font-normal text-gray-500 dark:text-gray-400">{convertDate(msg.createdAt)}</span>
+                      </div>
+                    </div>
+                    <div
+                        className={` max-w-xs p-3 ${msg.reciev_id === id ? "bg-blue-600 ml-auto rounded-t-lg rounded-bl-lg" : "bg-gray-100 dark:bg-gray-700 rounded-t-lg rounded-br-lg" }  `}
+                        >
+                        {msg.content}
+                    </div>
                   </div>
                 ))}
             </div>

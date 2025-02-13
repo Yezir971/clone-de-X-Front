@@ -32,7 +32,7 @@ export async function GET(){
             return Response.json({message:`Votre compte a été désactiver !`, status:403}, {status:403})
         }
 
-        return Response.json({message:`L'utilisateur existe !`,id:id,  status:200}, {status:200})
+        return Response.json({message:`L'utilisateur existe !`,id:id, username:user.username,  status:200}, {status:200})
     } catch (error) {
         console.error(error)
         return Response.json({message:`Erreur de connexion avec la bdd !`, status:500}, {status:500})
