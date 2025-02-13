@@ -3,7 +3,7 @@ import Users from "@/models/users.model"
 import jwt from "jsonwebtoken"
 import { cookies } from 'next/headers'
 
-export async function GET(req){
+export async function GET(){
     // const tokenCookies = await req.cookies.mon_petit_green_token
     // console.log(tokenCookies)
     
@@ -32,7 +32,7 @@ export async function GET(req){
             return Response.json({message:`Votre compte a été désactiver !`, status:403}, {status:403})
         }
 
-        return Response.json({message:`L'utilisateur existe !`, status:200}, {status:200})
+        return Response.json({message:`L'utilisateur existe !`,id:id, username:user.username,  status:200}, {status:200})
     } catch (error) {
         console.error(error)
         return Response.json({message:`Erreur de connexion avec la bdd !`, status:500}, {status:500})
