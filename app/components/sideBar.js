@@ -4,8 +4,6 @@ import logo from "@/public/logo.png"
 import { useRouter } from "next/navigation"
 import { MdPersonSearch } from "react-icons/md";
 
-import { MdPersonSearch } from "react-icons/md";
-import { useEffect, useState } from "react";
 
 const SideBar = ({hide}) => {
     const router = useRouter()
