@@ -1,25 +1,47 @@
 import Link from "next/link";
+import { useEffect, useState } from "react";
 import { FaPen } from "react-icons/fa";
+import { URL } from "../utils/constant/url";
 
 const Profil = () => {
+
+    const [user, setUser] = useState({})
+        useEffect(() => {
+            const fetchUsers = async () => {
+                console.log(URL.API_USER_GET);
+                const res = await fetch(URL.API_USER_GET);
+                if(!res.ok) {
+                    throw new Error('Failed to fetch users');
+                }
+                const data = await res.json();
+                setUser(data.user);
+                return data;
+            }
+            fetchUsers();  
+        }, []);
 
     return(
         <>
             <div className="bg-gray-800 shadow-lg rounded-2xl p-6">
                 {/* Header Section */}
                 <div className="relative h-40 bg-slate-700 rounded-t-2xl">
-                <div className="absolute -bottom-12 left-4 w-24 h-24 bg-white rounded-full p-1 shadow-lg">
                     <img 
-                    src="https://cdn.pixabay.com/photo/2020/05/11/04/13/mickey-mouse-5156421_1280.png" 
-                    alt="Profile" 
-                    className="w-full h-full rounded-full object-cover"
+                        src={user.baniere}
+                        alt="banner"
+                        className="h-40 w-full rounded-t-2xl"
                     />
-                </div>
+                    <div className="absolute -bottom-12 left-4 w-24 h-24 bg-white rounded-full p-1 shadow-lg">
+                        <img 
+                        src={user.avatar}
+                        alt="Profile" 
+                        className="w-full h-full rounded-full object-cover"
+                        />
+                    </div>
                 </div>
                 
                 {/* Profile Info */}
                 <div className="mt-14 px-4">
-                <h1 className="text-2xl font-bold text-[#ececec]">John Doe
+                <h1 className="text-2xl font-bold text-[#ececec]">{user.username}
 
 
                     <span className="inline-flex items-center justify-center w-6 h-6 me-2 text-sm font-semibold text-[#16DB65] rounded-full">
@@ -31,8 +53,8 @@ const Profil = () => {
                     </span>
 
                 </h1>
-                <p className="text-[#9b9a9a]">@johndoe</p>
-                <p className="mt-2 text-[#c9c8c8]">Web Developer | Tech Enthusiast | Coffee Lover</p>
+                <p className="text-[#9b9a9a]">@{user.username}</p>
+                <p className="mt-2 text-[#c9c8c8]">{user.description}</p>
                 <div className="mt-3 flex space-x-4 text-[#acacac]">
                     <span><strong>500</strong> Following</span>
                     <span><strong>1.2K</strong> Followers</span>
