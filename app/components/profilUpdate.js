@@ -22,7 +22,7 @@ const UpdateProfileForm = () => {
         fetchUsers();  
     }, []);
 
-    console.log('user: ', user.username);
+    console.log('user: ', user.avatar);
 
     return (
         <>
@@ -30,13 +30,18 @@ const UpdateProfileForm = () => {
                 <form className="bg-gray-800 shadow-lg rounded-2xl p-6">
                     {/* Header Section */}
                     <div className="relative h-40 bg-slate-700 rounded-t-2xl">
-                    <div className="absolute -bottom-12 left-4 w-24 h-24 bg-white rounded-full p-1 shadow-lg">
                         <img 
-                        src="https://cdn.pixabay.com/photo/2020/05/11/04/13/mickey-mouse-5156421_1280.png" 
-                        alt="Profile" 
-                        className="w-full h-full rounded-full object-cover"
+                            src={user.baniere}
+                            alt="banner"
+                            className="h-40 w-full rounded-t-2xl"
                         />
-                    </div>
+                        <div className="absolute -bottom-12 left-4 w-24 h-24 bg-white rounded-full p-1 shadow-lg">
+                            <img 
+                            src={user.avatar}
+                            alt="Profile" 
+                            className="w-full h-full rounded-full object-cover"
+                            />
+                        </div>
                     </div>
                     
                     {/* Profile Info */}
@@ -59,7 +64,7 @@ const UpdateProfileForm = () => {
                     <p className="text-[#9b9a9a]">@{user.username}</p>
                     <div className="flex flex-col relative">
                         <label htmlFor="username" className="hidden">Modifier la description:</label>
-                        <input type="text" name="username" id="username" placeholder="description à récupérer en base de données" className="bg-gray-800 border-2 border-gray-700 w-96 rounded-md focus:outline-none focus:ring-2 focus:ring-[#16DB65] text-[#ececec] px-2"/>
+                        <input type="text" name="username" id="username" placeholder={user.description} className="bg-gray-800 border-2 border-gray-700 w-96 rounded-md focus:outline-none focus:ring-2 focus:ring-[#16DB65] text-[#ececec] px-2"/>
                         <div className="absolute bottom-[5px] right-[184px] text-gray-500">
                             <FaPen />
                         </div>
