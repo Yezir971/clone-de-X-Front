@@ -22,6 +22,29 @@ const UpdateProfileForm = () => {
         fetchUsers();  
     }, []);
 
+    const updateUser = async () => {
+    try {
+        const res = await fetch("/api/user", {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                username: "NouveauNom",
+            }),
+        });
+
+        const data = await res.json();
+        console.log("Utilisateur mis à jour:", data);
+    } catch (error) {
+        console.error("Erreur lors de la mise à jour:", error);
+    }
+};
+
+// Exécution de la mise à jour
+updateUser();
+
+
     return (
         <>
             <div className="max-w-2xl mx-auto p-4">
